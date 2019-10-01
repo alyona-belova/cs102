@@ -37,5 +37,12 @@ def decrypt_caesar(ciphertext):
     ''
     """
     # PUT YOUR CODE HERE
-
+    plaintext = ""
+    for i in ciphertext:
+        if ('d' <= i <= 'z') or ('D' <= i <= 'Z'):
+            plaintext += chr(ord(i) - 3)
+        elif ('a' <= i <= 'c') or ('A' <= i <= 'C'):
+            plaintext += chr(ord(i) + 23)
+        else:
+            plaintext += i
     return plaintext
