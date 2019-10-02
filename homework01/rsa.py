@@ -13,7 +13,13 @@ def is_prime(n):
     False
     """
     # PUT YOUR CODE HERE
-    pass
+    if n == 1:
+        return True
+    else:
+        d = 2
+        while (d * d <= n) and (n % d != 0):
+            d += 1
+        return d * d > n
 
 
 def gcd(a, b):
