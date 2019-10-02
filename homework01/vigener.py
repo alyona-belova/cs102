@@ -39,4 +39,18 @@ def decrypt_vigenere(ciphertext, keyword):
     'ATTACKATDAWN'
     """
     # PUT YOUR CODE HERE
+    plaintext = ""
+    for i, a in enumerate(ciphertext):
+        if 'A' <= a <= 'Z':
+            number = ord(a) - ord(keyword[i % len(keyword)]) + ord('A') 
+            if number < ord('A'):
+                number += 26
+            plaintext += chr(number)
+        elif 'a' <= a <= 'z':
+            number = ord(a) - ord(keyword[i % len(keyword)]) + ord('a')
+            if number < ord('a'):
+                number += 26
+            plaintext += chr(number)
+        else:
+            plaintext += a
     return plaintext
