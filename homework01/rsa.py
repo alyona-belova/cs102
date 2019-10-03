@@ -50,7 +50,13 @@ def multiplicative_inverse(e, phi):
     23
     """
     # PUT YOUR CODE HERE
-    pass
+    a, b, k = phi, e, 1
+    while True:
+        d = (k*a+1)/b
+        if(d % 1 == 0):
+            return int(d)
+        k+=1
+
 
 
 def generate_keypair(p, q):
