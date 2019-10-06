@@ -11,7 +11,6 @@ def encrypt_caesar(plaintext):
     >>> encrypt_caesar("")
     ''
     """
-    # PUT YOUR CODE HERE
     ciphertext = ""
     for i in plaintext:
         if ('a' <= i <= 'w') or ('A' <= i <= 'W'):
@@ -36,7 +35,6 @@ def decrypt_caesar(ciphertext):
     >>> decrypt_caesar("")
     ''
     """
-    # PUT YOUR CODE HERE
     plaintext = ""
     for i in ciphertext:
         if ('d' <= i <= 'z') or ('D' <= i <= 'Z'):
