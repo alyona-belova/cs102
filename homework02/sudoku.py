@@ -95,7 +95,6 @@ def get_block(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     row, col = pos
     list = []
     i = j = row1 = row2 = col1 = col2 = 0
-
     if (row <= 2) and (row >= 0):
         row1 = 0
         row2 = 2
@@ -105,7 +104,6 @@ def get_block(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     else:
         row1 = 6
         row2 = 8
-  
     if (col <= 2) and (col >= 0):
         col1 = 0
         col2 = 2
@@ -115,7 +113,6 @@ def get_block(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     else:
         col1 = 6
         col2 = 8
-
     while i <= 8:
         while j <= 8:
             if (i >= row1) and (i <= row2) and (j >= col1) and (j <= col2):
@@ -153,7 +150,23 @@ def find_possible_values(grid: List[List[str]], pos: Tuple[int, int]) -> Set[str
     >>> values == {'2', '5', '9'}
     True
     """
-    pass
+    answer = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    list1 = get_row(grid, pos)
+    for i in list1:
+        for j in answer:
+            if i == j:
+                answer.remove(j)
+    list2 = get_col(grid, pos)
+    for i in list2:
+        for j in answer:
+            if i == j:
+                answer.remove(j)
+    list3 = get_block(grid, pos)
+    for i in list3:
+        for j in answer:
+            if i == j:
+                answer.remove(j)
+    return answer
 
 
 def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
