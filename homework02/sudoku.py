@@ -92,7 +92,38 @@ def get_block(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    pass
+    row, col = pos
+    list = []
+    i = j = row1 = row2 = col1 = col2 = 0
+
+    if (row <= 2) and (row >= 0):
+        row1 = 0
+        row2 = 2
+    elif (row <= 5) and (row >= 3):
+        row1 = 3
+        row2 = 5
+    else:
+        row1 = 6
+        row2 = 8
+  
+    if (col <= 2) and (col >= 0):
+        col1 = 0
+        col2 = 2
+    elif (col <= 5) and (col >= 3):
+        col1 = 3
+        col2 = 5
+    else:
+        col1 = 6
+        col2 = 8
+
+    while i <= 8:
+        while j <= 8:
+            if (i >= row1) and (i <= row2) and (j >= col1) and (j <= col2):
+                list.append(grid[i][j])
+            j += 1
+        j = 0
+        i += 1
+    return list
 
 
 def find_empty_positions(grid: List[List[str]]) -> Optional[Tuple[int, int]]:
