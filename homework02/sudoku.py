@@ -1,4 +1,5 @@
 from typing import Tuple, List, Set, Optional
+import random
 
 
 def read_sudoku(filename: str) -> List[List[str]]:
@@ -52,7 +53,7 @@ def get_row(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
-    row, col = pos
+    row, _ = pos
     list = []
     i = 0
     for j in grid:
@@ -72,7 +73,7 @@ def get_col(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    row, col = pos
+    _, col = pos
     list = []
     for j in grid:
         for i in range(len(j)):
@@ -235,7 +236,14 @@ def generate_sudoku(N: int) -> List[List[str]]:
     >>> check_solution(solution)
     True
     """
-    pass
+    grid = [['.' for i in range(9)] for i in range(9)]
+    grid = solve(grid)
+    indexes = [(i, j) for i in range(9) for j in range(9)]
+    for _ in range(81 - N):
+        index = random.choice(indexes)
+        indexes.remove(index)
+        grid[index[0]][index[1]] = '.'
+    return grid 
 
 
 if __name__ == '__main__':
