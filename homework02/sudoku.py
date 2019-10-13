@@ -52,7 +52,14 @@ def get_row(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
-    pass
+    row, col = pos
+    list = []
+    i = 0
+    for j in grid:
+        if i == row:
+            list = j
+        i += 1
+    return list
 
 
 def get_col(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
