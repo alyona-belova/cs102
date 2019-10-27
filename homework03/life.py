@@ -3,14 +3,13 @@ import random
 
 from typing import List, Optional, Tuple
 
-
 Cell = Tuple[int, int]
 Cells = List[int]
 Grid = List[Cells]
 
 
 class GameOfLife:
-    
+
     def __init__(
         self,
         size: Tuple[int, int],
@@ -94,7 +93,6 @@ class GameOfLife:
         else:
             return False
 
-
     @property
     def is_changing(self) -> bool:
         """
@@ -122,8 +120,12 @@ class GameOfLife:
         f.close()
         return game
 
-    def save(filename: pathlib.Path) -> None:
+    def save(self, filename: pathlib.Path) -> None:
         """
         Сохранить текущее состояние клеток в указанный файл.
         """
-        pass
+        f = open(filename, 'w')
+        for row in self.curr_generation:
+            f.write(''.join(str(ch) for ch in row) + '\n')
+        f.close()
+        return
