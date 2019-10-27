@@ -83,6 +83,10 @@ class GameOfLife:
             for i in range(self.cell_height):
                 for j in range(self.cell_width):
                     grid[i][j] = random.randint(0, 1)
+        else:
+            for i in range(self.cell_height):
+                for j in range(self.cell_width):
+                    grid[i][j] = 0
         return grid
 
     def draw_grid(self) -> None:
