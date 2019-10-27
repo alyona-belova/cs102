@@ -110,7 +110,17 @@ class GameOfLife:
         """
         Прочитать состояние клеток из указанного файла.
         """
-        pass
+        f = open(filename, 'r')
+        lines = f.readlines()
+        rows = len(lines)
+        cols = len(lines[0].strip())
+        game = GameOfLife((rows, cols), False)
+        for i in range(rows):
+            lines[i].strip()
+            for j in range(cols):
+                game.curr_generation[i][j] = int(lines[i][j])
+        f.close()
+        return game
 
     def save(filename: pathlib.Path) -> None:
         """
