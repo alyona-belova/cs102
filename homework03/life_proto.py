@@ -4,7 +4,6 @@ import random
 from pygame.locals import *
 from typing import List, Tuple
 
-
 Cell = Tuple[int, int]
 Cells = List[int]
 Grid = List[Cells]
@@ -53,12 +52,12 @@ class GameOfLife:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
-            self.draw_lines()
 
             # Отрисовка списка клеток
             # Выполнение одного шага игры (обновление состояния ячеек)
             self.draw_grid()
             self.draw_lines()
+            self.get_next_generation()
 
             pygame.display.flip()
             clock.tick(self.speed)
@@ -140,4 +139,21 @@ class GameOfLife:
         out : Grid
             Новое поколение клеток.
         """
-        pass
+        dead = []
+        alive = []
+        for i in range(self.cell_height):
+            for j in range(self.cell_width):
+                if (sum(self.get_neighbours((i, j))) == 3) and (self.grid[i][j] == 0):
+                    alive.append((i, j))
+                elif (sum(self.get_neighbours((i, j))) < 2) or (sum(self.get_neighbours((i, j))) > 3):
+                    dead.append((i, j))
+        for i in alive:
+            self.grid[i[0]][i[1]] = 1
+        for i in dead:
+            self.grid[i[0]][i[1]] = 0
+        return self.grid
+
+
+if __name__ == '__main__':
+    game = GameOfLife(320, 240, 20)
+    game.run()
