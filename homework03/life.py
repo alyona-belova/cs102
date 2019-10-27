@@ -29,55 +29,53 @@ class GameOfLife:
         self.generations = 1
 
     def create_grid(self, randomize: bool=False) -> Grid:
-        # Copy from previous assignment
-        grid = [[None] * self.cell_width for _ in range(self.cell_height)]
+        grid = [[None] * self.cols for _ in range(self.rows)]
         if randomize != 0:
-            for i in range(self.cell_height):
-                for j in range(self.cell_width):
+            for i in range(self.rows):
+                for j in range(self.cols):
                     grid[i][j] = random.randint(0, 1)
         else:
-            for i in range(self.cell_height):
-                for j in range(self.cell_width):
+            for i in range(self.rows):
+                for j in range(self.cols):
                     grid[i][j] = 0
         return grid
 
     def get_neighbours(self, cell: Cell) -> Cells:
-        # Copy from previous assignment
         row, col = cell
         cells = []
         if col > 0:
-            cells.append(self.grid[row][col - 1])
+            cells.append(self.curr_generation[row][col - 1])
             if row > 0:
-                cells.append(self.grid[row - 1][col - 1])
-            if row < (self.cell_height - 1):
-                cells.append(self.grid[row + 1][col - 1])
-        if col < (self.cell_width - 1):
-            cells.append(self.grid[row][col + 1])
+                cells.append(self.curr_generation[row - 1][col - 1])
+            if row < (self.rows - 1):
+                cells.append(self.curr_generation[row + 1][col - 1])
+        if col < (self.cols - 1):
+            cells.append(self.curr_generation[row][col + 1])
             if row > 0:
-                cells.append(self.grid[row - 1][col + 1])
-            if row < (self.cell_height - 1):
-                cells.append(self.grid[row + 1][col + 1])
+                cells.append(self.curr_generation[row - 1][col + 1])
+            if row < (self.rows - 1):
+                cells.append(self.curr_generation[row + 1][col + 1])
         if row > 0:
-            cells.append(self.grid[row - 1][col])
-        if row < (self.cell_height - 1):
-            cells.append(self.grid[row + 1][col])
+            cells.append(self.curr_generation[row - 1][col])
+        if row < (self.rows - 1):
+            cells.append(self.curr_generation[row + 1][col])
         return cells
 
     def get_next_generation(self) -> Grid:
-        # Copy from previous assignment
+        self.prev_generation = self.curr_generation
         dead = []
         alive = []
-        for i in range(self.cell_height):
-            for j in range(self.cell_width):
-                if (sum(self.get_neighbours((i, j))) == 3) and (self.grid[i][j] == 0):
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if (sum(self.get_neighbours((i, j))) == 3) and (self.curr_generation[i][j] == 0):
                     alive.append((i, j))
                 elif (sum(self.get_neighbours((i, j))) < 2) or (sum(self.get_neighbours((i, j))) > 3):
                     dead.append((i, j))
         for i in alive:
-            self.grid[i[0]][i[1]] = 1
+            self.curr_generation[i[0]][i[1]] = 1
         for i in dead:
-            self.grid[i[0]][i[1]] = 0
-        return self.grid
+            self.curr_generation[i[0]][i[1]] = 0
+        return self.curr_generation
 
     def step(self) -> None:
         """
@@ -102,7 +100,10 @@ class GameOfLife:
         """
         Изменилось ли состояние клеток с предыдущего шага.
         """
-        pass
+        if self.curr_generation != self.prev_generation:
+            return True
+        else:
+            return False
 
     @staticmethod
     def from_file(filename: pathlib.Path) -> 'GameOfLife':
