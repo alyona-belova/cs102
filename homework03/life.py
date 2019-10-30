@@ -111,13 +111,11 @@ class GameOfLife:
         Прочитать состояние клеток из указанного файла.
         """
         f = open(filename, 'r')
-        lines = f.readlines()
-        rows = len(lines)
-        cols = len(lines[0].strip())
-        for i in range(rows):
-            lines[i].strip()
-            for j in range(cols):
-                GameOfLife((rows, cols), False).curr_generation[i][j] = int(lines[i][j])
+        ln = f.readlines()
+        for i in range(len(ln)):
+            ln[i].strip()
+            for j in range(len(ln[0].strip())):
+                GameOfLife((len(ln), len(ln[0].strip())), False).curr_generation[i][j] = int(ln[i][j])
         f.close()
         return GameOfLife
 
@@ -127,7 +125,6 @@ class GameOfLife:
         """
         f = open(filename, 'w')
         for row in self.curr_generation:
-            for char in row:
-                f.write(''.join(str(char)) + '\n')
+            for ch in row:
+                f.write(''.join(str(ch)) + '\n')
         f.close()
-        return
