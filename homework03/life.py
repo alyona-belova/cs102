@@ -2,6 +2,7 @@ import pathlib
 import random
 
 from typing import List, Optional, Tuple
+from copy import deepcopy
 
 Cell = Tuple[int, int]
 Cells = List[int]
@@ -25,7 +26,7 @@ class GameOfLife:
         # Максимальное число поколений
         self.max_generations = max_generations
         # Текущее число поколений
-        self.generations = 1
+        self.n_generation = 1
 
     def create_grid(self, randomize: bool=False) -> Grid:
         grid = [[None] * self.cols for _ in range(self.rows)]
@@ -61,7 +62,7 @@ class GameOfLife:
         return cells
 
     def get_next_generation(self) -> Grid:
-        self.prev_generation = self.curr_generation
+        grid = deepcopy(self.curr_generation)
         dead = []
         alive = []
         for i in range(self.rows):
@@ -71,24 +72,25 @@ class GameOfLife:
                 elif (sum(self.get_neighbours((i, j))) < 2) or (sum(self.get_neighbours((i, j))) > 3):
                     dead.append((i, j))
         for i in alive:
-            self.curr_generation[i[0]][i[1]] = 1
+            grid[i[0]][i[1]] = 1
         for i in dead:
-            self.curr_generation[i[0]][i[1]] = 0
-        return self.curr_generation
+            grid[i[0]][i[1]] = 0
+        return grid
 
     def step(self) -> None:
         """
         Выполнить один шаг игры.
         """
-        self.get_next_generation()
-        self.generations += 1
+        self.prev_generation = deepcopy(self.curr_generation)
+        self.curr_generation = self.get_next_generation()
+        self.n_generation += 1
 
     @property
-    def is_max_generations_exceeded(self) -> bool:
+    def is_max_generations_exceed(self) -> bool:
         """
         Не превысило ли текущее число поколений максимально допустимое.
         """
-        if self.generations > self.max_generations:
+        if self.n_generation >= self.max_generations:
             return True
         else:
             return False
@@ -112,13 +114,12 @@ class GameOfLife:
         lines = f.readlines()
         rows = len(lines)
         cols = len(lines[0].strip())
-        game = GameOfLife((rows, cols), False)
         for i in range(rows):
             lines[i].strip()
             for j in range(cols):
-                game.curr_generation[i][j] = int(lines[i][j])
+                GameOfLife((rows, cols), False).curr_generation[i][j] = int(lines[i][j])
         f.close()
-        return game
+        return GameOfLife
 
     def save(self, filename: pathlib.Path) -> None:
         """
@@ -126,6 +127,7 @@ class GameOfLife:
         """
         f = open(filename, 'w')
         for row in self.curr_generation:
-            f.write(''.join(str(ch) for ch in row) + '\n')
+            for char in row:
+                f.write(''.join(str(char)) + '\n')
         f.close()
         return
