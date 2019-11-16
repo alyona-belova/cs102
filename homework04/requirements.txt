@@ -1,0 +1,6 @@
+requests==2.18.4
+beautifulsoup4==4.8.1
+bs4==0.0.1
+pyTelegramBotAPI==3.6.6
+telebot==0.0.3
+html5lib==1.0.1
