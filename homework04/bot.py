@@ -101,6 +101,9 @@ def get_day(message):
         day, group = message.text.split()
     elif len(message.text.split()) == 3:
         day, week, group = message.text.split()
+        if week != "1" and week != "2":
+            bot.send_message(message.chat.id, 'Такой недели не существует\nВведите:\n1 - для четной\n2 - для нечетной')
+            return None
     day = day[1:]
     group = group.upper()
     if not is_group_exist(group):
@@ -225,6 +228,9 @@ def get_all_schedule(message):
         day, group = message.text.split()
     elif len(message.text.split()) == 3:
         day, week, group = message.text.split()
+        if week != "1" and week != "2":
+            bot.send_message(message.chat.id, 'Такой недели не существует\nВведите:\n1 - для четной\n2 - для нечетной')
+            return None
     group = group.upper()
     if not is_group_exist(group):
         bot.send_message(message.chat.id, 'Такой группы не существует')
