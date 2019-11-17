@@ -247,8 +247,8 @@ def get_all_schedule(message):
 @bot.message_handler(content_types=['text'])
 def help(message: telebot.types.Message):
     resp = "Вот что я могу:\n/day (week) group - Получить расписание на этот день недели\n/near" + \
-        "group - Получить ближайшее занятие\n/tommorow group - Получить расписание на следующий" + \
-        "день\n/all (week) group - Получить расписание на всю неделю"
+        " group - Получить ближайшее занятие\n/tommorow group - Получить расписание на следующий" + \
+        " день\n/all (week) group - Получить расписание на всю неделю"
     bot.send_message(message.chat.id, resp, parse_mode='HTML')
     return None
 
