@@ -102,10 +102,10 @@ def get_day(message):
     elif len(message.text.split()) == 3:
         day, week, group = message.text.split()
     day = day[1:]
+    group = group.upper()
     if not is_group_exist(group):
         bot.send_message(message.chat.id, 'Такой группы не существует')
         return None
-    group = group.upper()
     web_page = get_page(group, week)
     schedule = get_schedule(web_page, day)
     if schedule == "error":
@@ -125,10 +125,10 @@ def get_near_lesson(message):
         bot.send_message(message.chat.id, 'Пожалуйста, укажите номер группы после /near')
         return None
     _, group = message.text.split()
+    group = group.upper()
     if not is_group_exist(group):
         bot.send_message(message.chat.id, 'Такой группы не существует')
         return None
-    group = group.upper()
     today = datetime.datetime.now()
     week = int(today.isocalendar()[1]) % 2 + 1
     if week == 1:
@@ -177,10 +177,10 @@ def get_tommorow(message):
         bot.send_message(message.chat.id, 'Пожалуйста, укажите номер группы после /tommorow')
         return None
     _, group = message.text.split()
+    group = group.upper()
     if not is_group_exist(group):
         bot.send_message(message.chat.id, 'Такой группы не существует')
         return None
-    group = group.upper()
     dt = datetime.datetime.now()
     week = int(dt.isocalendar()[1]) % 2 + 1
     if week == 1:
@@ -225,10 +225,10 @@ def get_all_schedule(message):
         day, group = message.text.split()
     elif len(message.text.split()) == 3:
         day, week, group = message.text.split()
+    group = group.upper()
     if not is_group_exist(group):
         bot.send_message(message.chat.id, 'Такой группы не существует')
         return None
-    group = group.upper()
     web_page = get_page(group, week)
     resp = ''
     for day in days:
