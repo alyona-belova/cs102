@@ -10,10 +10,7 @@ import requests
 import textwrap
 
 from nltk.corpus import stopwords
-from pandas.io.json import json_normalize
-from string import Template, punctuation
-from tqdm import tqdm
-from typing import List
+from string import punctuation
 
 
 def get_wall(
