@@ -12,8 +12,8 @@ def get(url, params={}, timeout=5, max_retries=5, backoff_factor=1.3):
     :param max_retries: максимальное число повторных запросов
     :param backoff_factor: коэффициент экспоненциального нарастания задержки
     """
-    retries = 0
     delay = 0.1
+    retries = 0
     while retries < max_retries:
         try:
             response = requests.get(url, str(timeout))
