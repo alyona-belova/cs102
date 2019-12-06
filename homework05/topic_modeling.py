@@ -3,7 +3,6 @@ import gensim
 import nltk
 import pandas as pd
 import pymorphy2
-import pyLDAvis
 import pyLDAvis.gensim
 import re
 import requests
