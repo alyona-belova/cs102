@@ -1,63 +1,66 @@
-package vigenere
+package rsa
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
-func TestEncryptVigenere(t *testing.T) {
-	result := EncryptVigenere("PYTHON", "A")
-	expectedResult := "PYTHON"
+func TestIsPrime(t *testing.T) {
+	result := isPrime(2)
+	expectedResult := true
 
 	if result != expectedResult {
-		t.Fatalf("Expected '%s' but got '%s'", expectedResult, result)
+		t.Fatalf("Expected '%t' but got '%t'", expectedResult, result)
 	}
 
-	result = EncryptVigenere("python", "a")
-	expectedResult = "python"
-
+	result = isPrime(8)
+	expectedResult = false
 	if result != expectedResult {
-		t.Fatalf("Expected '%s' but got '%s'", expectedResult, result)
+		t.Fatalf("Expected '%t' but got '%t'", expectedResult, result)
 	}
 
-	result = EncryptVigenere("Python3.6", "a")
-	expectedResult = "Python3.6"
-
+	result = isPrime(11)
+	expectedResult = true
 	if result != expectedResult {
-		t.Fatalf("Expected '%s' but got '%s'", expectedResult, result)
-	}
-
-	result = EncryptVigenere("ATTACKATDAWN", "LEMON")
-	expectedResult = "LXFOPVEFRNHR"
-
-	if result != expectedResult {
-		t.Fatalf("Expected '%s' but got '%s'", expectedResult, result)
+		t.Fatalf("Expected '%t' but got '%t'", expectedResult, result)
 	}
 }
 
-func TestDecryptVigenere(t *testing.T) {
-	result := DecryptVigenere("PYTHON", "A")
-	expectedResult := "PYTHON"
-
+func TestGCD(t *testing.T) {
+	result := gcd(12, 15)
+	expectedResult := 3
 	if result != expectedResult {
-		t.Fatalf("Expected '%s' but got '%s'", expectedResult, result)
+		t.Fatalf("Expected '%d' but got '%d'", expectedResult, result)
 	}
 
-	result = DecryptVigenere("python", "a")
-	expectedResult = "python"
-
+	result = gcd(3, 7)
+	expectedResult = 1
 	if result != expectedResult {
-		t.Fatalf("Expected '%s' but got '%s'", expectedResult, result)
+		t.Fatalf("Expected '%d' but got '%d'", expectedResult, result)
 	}
+}
 
-	result = DecryptVigenere("Python3.6", "a")
-	expectedResult = "Python3.6"
+func TestMultiplicativeInverse(t *testing.T) {
+	result := multiplicativeInverse(7, 40)
+	expectedResult := -17
 
 	if result != expectedResult {
-		t.Fatalf("Expected '%s' but got '%s'", expectedResult, result)
+		t.Fatalf("Expected '%d' but got '%d'", expectedResult, result)
 	}
+}
 
-	result = DecryptVigenere("LXFOPVEFRNHR", "LEMON")
-	expectedResult = "ATTACKATDAWN"
+func TestEncrypt(t *testing.T) {
+	result := Encrypt(Key{19, 187}, "secret")
+	expectedResult := []int{174, 50, 143, 113, 50, 24}
+	if !reflect.DeepEqual(result, expectedResult) {
+		t.Fatalf("Expected '%T' but got '%T'", expectedResult, result)
+	}
+}
 
+func TestDecrypt(t *testing.T) {
+	result := Decrypt(Key{59, 187}, []int{174, 50, 143, 113, 50, 24})
+	expectedResult := "secret"
 	if result != expectedResult {
-		t.Fatalf("Expected '%s' but got '%s'", expectedResult, result)
+		t.Fatalf("Expected '%T' but got '%T'", expectedResult, result)
 	}
 }
