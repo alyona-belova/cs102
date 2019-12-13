@@ -18,20 +18,27 @@ type KeyPair struct {
 }
 
 func isPrime(n int) bool {
-	for factor := 2; factor < int(math.Sqrt(float64(n)))+1; factor++ {
-		if n%factor == 0 {
+	if n == 2 || n == 3 {
+		return true
+	}
+
+	if n < 2 || n%2 == 0 {
+		return false
+	}
+
+	for i := 2; i <= int(math.Floor(math.Sqrt(float64(n)))); i++ {
+		if n%i == 0 {
 			return false
 		}
 	}
-
 	return true
 }
 
 func gcd(a int, b int) int {
-	if b == 0 {
-		return a
+	for b != 0 {
+		a, b = b, a%b
 	}
-	return gcd(b, a%b)
+	return a
 }
 
 func multiplicativeInverse(e int, phi int) int {
