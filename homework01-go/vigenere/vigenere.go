@@ -1,6 +1,6 @@
 package vigenere
 
-//EncryptVigenere encrypts in vigenere
+//EncryptVigenere encrypts plaintext using a Vigenere cipher
 func EncryptVigenere(plaintext string, keyword string) string {
 	var ciphertext string
 	var minusOrd, shift, letterOrd int
@@ -34,7 +34,7 @@ func EncryptVigenere(plaintext string, keyword string) string {
 	return ciphertext
 }
 
-//DecryptVigenere decrypts from vigenere
+//DecryptVigenere decrypts a ciphertext using a Vigenere cipher
 func DecryptVigenere(ciphertext string, keyword string) string {
 	var plaintext string
 	var minusOrd, shift, letterOrd int
