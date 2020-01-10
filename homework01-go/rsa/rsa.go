@@ -7,11 +7,9 @@ import (
 	"math/rand"
 )
 
-
 type Key struct {
 	key, n int
 }
-
 
 type KeyPair struct {
 	Private, Public Key
