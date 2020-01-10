@@ -1,6 +1,6 @@
 package caesar
 
-//EncryptCaesar encrypts in caesar
+//EncryptCaesar encrypts plaintext using a Caesar cipher
 func EncryptCaesar(plaintext string, shift int) string {
 	var ciphertext string
 
@@ -20,7 +20,7 @@ func EncryptCaesar(plaintext string, shift int) string {
 	return ciphertext
 }
 
-//DecryptCaesar decrypts from caesar
+//DecryptCaesar decrypts a ciphertext using a Caesar cipher
 func DecryptCaesar(ciphertext string, shift int) string {
 	var plaintext string
 
