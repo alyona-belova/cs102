@@ -7,12 +7,12 @@ import (
 	"math/rand"
 )
 
-//Key key
+
 type Key struct {
 	key, n int
 }
 
-//KeyPair keypair
+
 type KeyPair struct {
 	Private, Public Key
 }
@@ -90,7 +90,7 @@ func GenerateKeypair(p int, q int) (KeyPair, error) {
 	return KeyPair{Key{e, n}, Key{d, n}}, nil
 }
 
-//Encrypt encrypts
+//Encrypt encrypts plaintext using a RSA cipher
 func Encrypt(pk Key, plaintext string) []int {
 	cipher := []int{}
 	n := new(big.Int)
@@ -103,7 +103,7 @@ func Encrypt(pk Key, plaintext string) []int {
 	return cipher
 }
 
-//Decrypt decrypts
+//Decrypt decrypts a ciphertext using a RSA cipher.
 func Decrypt(pk Key, cipher []int) string {
 	plaintext := ""
 	n := new(big.Int)
