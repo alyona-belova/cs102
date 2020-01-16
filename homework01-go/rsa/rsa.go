@@ -20,7 +20,7 @@ func isPrime(n int) bool {
 		return true
 	}
 
-	if n < 2 || n%2 == 0 {
+	if n < 2 {
 		return false
 	}
 
