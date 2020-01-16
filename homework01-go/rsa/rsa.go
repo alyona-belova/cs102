@@ -16,7 +16,7 @@ type KeyPair struct {
 }
 
 func isPrime(n int) bool {
-	if n == 2 || n == 3 {
+	if n == 2 || n == 1 {
 		return true
 	}
 
